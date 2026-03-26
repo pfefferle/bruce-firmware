@@ -200,6 +200,10 @@ public:
     // RFID
     int rfidModule = M5_RFID2_MODULE;
 
+    // Microphone
+    int micClk = PIN_CLK;
+    int micData = PIN_DATA;
+
     // GPS
     int gpsBaudrate = 9600;
 
@@ -257,6 +261,10 @@ public:
 
     // iButton
     void setiButtonPin(int value);
+
+    // Microphone
+    void setMicClkPin(int value);
+    void setMicDataPin(int value);
 
     // RFID
     void setRfidModule(RFIDModules value);

@@ -113,6 +113,19 @@ void BruceConfigPins::fromJson(JsonObject obj) {
         log_e("Fail");
     }
 
+    if (!root["micClk"].isNull()) {
+        micClk = root["micClk"].as<int>();
+    } else {
+        count++;
+        log_e("Fail");
+    }
+    if (!root["micData"].isNull()) {
+        micData = root["micData"].as<int>();
+    } else {
+        count++;
+        log_e("Fail");
+    }
+
     if (!root["CC1101_Pins"].isNull()) {
         SPIPins def = CC1101_bus;
         CC1101_bus.fromJson(root["CC1101_Pins"].as<JsonObject>());
@@ -213,6 +226,8 @@ void BruceConfigPins::toJson(JsonObject obj) const {
     root["rfidModule"] = rfidModule;
     root["gpsBaudrate"] = gpsBaudrate;
     root["iButton"] = iButton;
+    root["micClk"] = micClk;
+    root["micData"] = micData;
 
     JsonObject _CC1101 = root["CC1101_Pins"].to<JsonObject>();
     CC1101_bus.toJson(_CC1101);
@@ -505,6 +520,16 @@ void BruceConfigPins::setiButtonPin(int value) {
         saveFile();
     } else log_e("iButton: Gpio pin not set, incompatible with this device\n");
 }
+void BruceConfigPins::setMicClkPin(int value) {
+    micClk = value;
+    saveFile();
+}
+
+void BruceConfigPins::setMicDataPin(int value) {
+    micData = value;
+    saveFile();
+}
+
 void BruceConfigPins::setGpsBaudrate(int value) {
     gpsBaudrate = value;
     validateGpsBaudrateValue();
